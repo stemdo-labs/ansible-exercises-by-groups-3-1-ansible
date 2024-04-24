@@ -1,0 +1,23 @@
+# Variables para el entorno dev
+dev:
+  https_service: true
+  port_8081_state: false
+  port_161_162_state: false
+  source_network: "192.168.20.0/24"
+  zone: trusted
+
+# variables para el entorno pre
+pre:
+  https_service: true
+  port_8081_state: true
+  port_161_162_state: true
+  source_network: "192.168.30.0/24"
+  zone: internal
+
+# variables para el entorno pro
+pro:
+  https_service: true
+  port_8081_state: true
+  port_161_162_state: true
+  source_network: "192.168.40.0/24"
+  zone: external
