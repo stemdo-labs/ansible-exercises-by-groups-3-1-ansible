@@ -1,0 +1,2 @@
+ansible all -i ../inventory -m setup -a 'filter=ansible_all_ipv6_addresses' | tee ipv6_i
+nfo.txt
