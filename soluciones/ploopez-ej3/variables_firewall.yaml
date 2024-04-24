@@ -1,0 +1,17 @@
+firewall_service: https
+
+firewall_rules:
+  - port: 8081
+    protocol: tcp
+    state: disable
+
+  - port: 161-162
+    protocol: udp
+    state: disable
+
+  - source: 192.168.20.0/24
+    zone: internal
+    state: enable
+
+firewall_permanent: true
+

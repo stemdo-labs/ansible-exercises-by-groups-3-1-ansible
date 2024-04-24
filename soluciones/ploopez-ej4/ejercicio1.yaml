@@ -1,0 +1,15 @@
+---
+- name: Instalar Apache2 y iniciar el servicio
+  hosts: mayor
+  become: yes
+  tasks:
+    - name: Instalar Apache2
+      apt:
+        name: apache2
+        state: present
+
+    - name: Iniciar servicio Apache2
+      service:
+        name: apache2
+        state: started
+        enabled: yes

@@ -1,0 +1,14 @@
+---
+- name: Comprimir directorio sin variables
+  hosts: mayor
+  tasks:
+    - name: Comprimir directorio /var/www/html en formato gz
+      command: tar -zcvf /tmp/html_backup.tar.gz /var/www/html
+
+- name: Comprimir directorio con variables
+  hosts: mayor
+  vars:
+    directorio_a_comprimir: "/var/www/html" ¡
+  tasks:
+    - name: Comprimir directorio en formato gz
+      command: tar -zcvf /tmp/directorio_backup.tar.gz "{{ directorio_a_comprimir }}"

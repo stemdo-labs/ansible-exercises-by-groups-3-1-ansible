@@ -1,0 +1,21 @@
+---
+- name: Ejecutar script y obtener salida
+  hosts: nodo1
+
+  tasks:
+    - name: Ejecutar script en el nodo remoto
+      shell: /home/remoto/get_ipv6.sh
+      register: script_output
+
+    - name: Crear directorio en el nodo controlador si no existe
+      file:
+        path: /home/pablo/ansible-ejercicio3
+        state: directory
+      delegate_to: localhost 
+      become: yes
+    - name: Guardar salida en archivo en el nodo controlador
+      copy:
+        content: "{{ script_output.stdout }}"
+        dest: /home/pablo/ansible-ejercicio3/ipv6_remotas.txt
+      delegate_to: localhost  
+

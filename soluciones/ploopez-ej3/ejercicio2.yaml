@@ -1,0 +1,15 @@
+---
+- name: Despliegue de aplicación
+  hosts: nodo1
+  vars_prompt:
+    - name: "entorno"
+      prompt: "Por favor, ingresa el entorno (dev/pre/pro) de despliegue: "
+      private: no
+
+  tasks:
+    - name: Cargar variables del entorno
+      include_vars: "variables_{{ entorno }}.yaml"
+
+    - name: Mostrar variables del entorno
+      debug:
+        msg: "En el entorno {{ entorno }} se utilizará la fuente '{{ source }}', el servicio '{{ service }}' y el estado '{{ state }}'"

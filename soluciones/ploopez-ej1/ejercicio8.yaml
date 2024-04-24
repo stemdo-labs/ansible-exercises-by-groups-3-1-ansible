@@ -1,0 +1,33 @@
+---
+- name: Ping al nodo1 para comprobar su disponibilidad
+  hosts: nodo1
+  tasks:
+    - name: Ping al nodo1
+      ping:
+
+- name: Instalar Apache2 en el nodo1
+  hosts: nodo1
+  become: yes
+  tasks:
+    - name: Instalar Apache2
+      apt:
+        name: apache2
+        state: present
+
+- name: Comprobar si Apache2 está funcionando en el nodo1
+  hosts: nodo1
+  become: yes
+  tasks:
+    - name: Comprobar si Apache2 está en ejecución
+      systemd:
+        name: apache2
+        state: started
+
+- name: Instalar Mariadb con la ultima versión
+  hosts: nodo1
+  become: yes
+  tasks:
+    - name: MariaDB
+      apt:
+        name: mariadb-server
+        state: latest
