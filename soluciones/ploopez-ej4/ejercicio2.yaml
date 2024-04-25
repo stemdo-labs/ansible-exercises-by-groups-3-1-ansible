@@ -4,7 +4,7 @@
 #Después asociamos el hanlder a las tareas que se encargan de configurar Apache2
 ---
 - name: Configuración y reinicio de Apache2
-  hosts: tmayor
+  hosts: mayor
   tasks:
     - name: Copiar el archivo de configuración de Apache2
       template:

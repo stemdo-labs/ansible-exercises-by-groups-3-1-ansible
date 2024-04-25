@@ -1,0 +1,71 @@
+{
+    "usuarios": [
+      {
+        "nombre": "Pedro",
+        "grupos": ["admin", "usuarios", "produccion"],
+        "expira_cuenta": false,
+        "uid": 1040,
+        "crear_clave_ssh": true,
+        "clave_ssh_tipo": "rsa 2048"
+      },
+      {
+        "nombre": "Juan",
+        "grupos": ["usuarios", "desarrollo"],
+        "expira_cuenta": false,
+        "uid": 1041,
+        "crear_clave_ssh": false
+      },
+      {
+        "nombre": "Maria",
+        "grupos": ["usuarios", "desarrollo"],
+        "expira_cuenta": false,
+        "uid": 1042,
+        "crear_clave_ssh": false
+      },
+      {
+        "nombre": "Ana",
+        "grupos": ["testing", "produccion"],
+        "expira_cuenta": false,
+        "uid": 1043,
+        "crear_clave_ssh": true,
+        "clave_ssh_tipo": "rsa 2048"
+      },
+      {
+        "nombre": "Antonio",
+        "grupos": ["usuarios", "testing"],
+        "expira_cuenta": false,
+        "uid": 1044,
+        "crear_clave_ssh": false
+      },
+      {
+        "nombre": "Marta",
+        "grupos": ["usuarios", "produccion"],
+        "expira_cuenta": false,
+        "uid": 1045,
+        "crear_clave_ssh": false
+      },
+      {
+        "nombre": "Jose",
+        "grupos": ["admin", "usuarios", "desarrollo"],
+        "expira_cuenta": false,
+        "uid": 1046,
+        "crear_clave_ssh": true,
+        "clave_ssh_tipo": "rsa 2048"
+      },
+      {
+        "nombre": "Invitado1",
+        "grupos": ["usuarios"],
+        "expira_cuenta": true,
+        "uid": "-",
+        "crear_clave_ssh": false
+      },
+      {
+        "nombre": "Invitado2",
+        "grupos": ["usuarios"],
+        "expira_cuenta": true,
+        "uid": "-",
+        "crear_clave_ssh": false
+      }
+    ]
+  }
+  

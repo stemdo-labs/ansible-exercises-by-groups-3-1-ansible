@@ -1,0 +1,31 @@
+---
+- name: Crear usuarios y grupos
+  hosts: mayor
+  tasks:
+    - name: Leer datos del archivo JSON
+      include_vars:
+        file: usuarios.json
+        name: usuarios_data
+
+    - name: Crear grupos
+      group:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ usuarios_data.usuarios | map(attribute='grupos') | flatten | unique }}"
+
+    - name: Crear usuarios
+      user:
+        name: "{{ item.nombre }}"
+        uid: "{{ item.uid }}"
+        groups: "{{ item.grupos }}"
+        state: present
+      when: item.uid != "-"
+      loop: "{{ usuarios_data.usuarios }}"
+
+    - name: Crear claves SSH
+      authorized_key:
+        user: "{{ item.nombre }}"
+        key: "{{ lookup('file', '/home/pablo/.ssh/id_rsa.pub') }}"
+        state: present
+      when: item.crear_clave_ssh is defined and item.crear_clave_ssh == true
+      loop: "{{ usuarios_data.usuarios }}"
