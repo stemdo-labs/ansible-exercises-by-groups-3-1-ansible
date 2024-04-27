@@ -1,5 +1,0 @@
----
-  - import_playbook: instalar-apache.yaml
-  - import_playbook: configurar-apache.yaml
-  - import_playbook: limpiar-dependencias.yaml
-...

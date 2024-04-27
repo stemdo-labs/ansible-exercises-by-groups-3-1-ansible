@@ -1,9 +1,0 @@
----
-- name: Limpiar dependencias y caché
-  hosts: todos
-  tasks:
-    - name: Limpiar dependencias
-      command: apt autoremove --purge -y
-
-    - name: Limpiar caché
-      command: apt clean

@@ -1,0 +1,31 @@
+---
+- name: Instalar paquetes en función de la distribución
+  hosts: todos
+  become: yes
+
+  tasks:
+    - name: Instalar paquetes en Ubuntu
+      shell: apt-get install -y {{ item }}
+      when: ansible_distribution == 'Ubuntu'
+      with_items:
+        - curl
+        - apt-transport-https
+        - ca-certificates
+        - software-properties-common
+        - glances
+        - git
+        - vim
+      tags: ubuntu
+
+    - name: Instalar paquetes en Debian
+      shell: apt-get install -y {{ item }}
+      when: ansible_distribution == 'Debian'
+      with_items:
+        - curl
+        - apt-transport-https
+        - ca-certificates
+        - software-properties-common
+        - glances
+        - git
+        - vim
+      tags: debian

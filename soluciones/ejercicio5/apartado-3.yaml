@@ -1,0 +1,19 @@
+---
+- name: Instalar paquetes en nodos
+  hosts: todos
+  become: yes
+
+  tasks:
+    - name: Instalar paquetes con apt
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - apt-transport-https
+        - ca-certificates
+        - software-properties-common
+        - glances
+        - git
+        - vim
+...
