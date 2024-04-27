@@ -1,0 +1,7 @@
+---
+- name: Comprimir archivos de logs
+  hosts: mayor
+  tasks:
+    - name: Comprimir archivos de /var/log/
+      command: tar -zcvf /tmp/var_log.tar.gz --exclude="*access*.txt" /var/log/
+

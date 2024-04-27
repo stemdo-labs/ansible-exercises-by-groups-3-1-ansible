@@ -1,0 +1,8 @@
+---
+- name: Instalar MySQL en servidores
+  hosts: grupo1
+  become: true
+  roles:
+    - geerlingguy.mysql
+  vars:
+    mysql_root_password: "2001"  # Cambia esto por tu contraseña deseada

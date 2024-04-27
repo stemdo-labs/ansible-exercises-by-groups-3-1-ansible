@@ -1,0 +1,8 @@
+---
+- name: Instalar y configurar NGINX
+  hosts: grupo1
+  become: true
+  vars:
+    nginx_http_password: "2001"
+  roles:
+    - geerlingguy.nginx

@@ -1,0 +1,19 @@
+---
+- name: Comprimir archivos de logs de Apache
+  hosts: grupo1
+  become: yes
+
+  tasks:
+    - name: Encuentra archivos de logs de Apache y los comprime
+      find:
+        paths: /var/log/apache2
+        patterns: "*.log,*.out,*.txt"
+      register: log_files
+
+    - name: Comprime los archivos encontrados
+      archive:
+        path: "{{ item.path }}"
+        dest: "/tmp/apache_logs.tar.gz"
+        format: gz
+      with_items: "{{ log_files.files }}"
+...

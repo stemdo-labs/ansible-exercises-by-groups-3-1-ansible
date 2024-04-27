@@ -1,0 +1,4 @@
+{
+    "web_services": ["apache2", "vsftpd"]
+}
+

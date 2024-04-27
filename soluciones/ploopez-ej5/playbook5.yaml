@@ -1,0 +1,58 @@
+---
+- name: Instalar Nginx y configurar el cortafuegos
+  hosts: mayor
+  become: yes
+
+  tasks:
+    - name: Actualizar lista de paquetes
+      apt:
+        update_cache: yes
+
+    - name: Instalar Nginx
+      apt:
+        name: nginx
+        state: present
+
+- name: Permitir el paso a través de cortafuegos
+  hosts: mayor
+  become: yes
+
+  vars_prompt:
+    - name: nginx_profile
+      prompt: "Selecciona el perfil de Nginx (Full/HTTP/HTTPS):"
+      private: no
+
+  tasks: 
+    - name: Permitir tráfico a través del cortafuegos
+      ufw: # para la configuracion del firewall
+        rule: allow
+        name: "{{ nginx_profile }}"
+      when: nginx_profile in ['Nginx Full', 'Nginx HTTP', 'Nginx HTTPS']
+
+- name: Verificar el estado del cortafuegos
+  hosts: mayor
+  become: yes
+
+  tasks:
+    - name: Ejecutar el comando de verificación del cortafuegos
+      shell: ufw status
+      register: firewall_status
+
+    - name: Mostrar el resultado del estado del cortafuegos
+      debug:
+        msg: "Estado del cortafuegos: {{ firewall_status.stdout }}"
+
+- name: Verificar el estado del servicio Nginx
+  hosts: mayor
+  become: yes
+
+  tasks:
+    - name: Obtener estado del servicio Nginx
+      service:
+        name: nginx
+      register: nginx_status
+
+    - name: Mostrar el estado del servicio Nginx
+      debug:
+        msg: "Estado del servicio Nginx: {{ nginx_status.status }}"
+...

@@ -1,0 +1,26 @@
+---
+- name: Ejecutar tareas después de eliminar bloqueo.lock
+  hosts: grupo1
+  become: yes
+
+  tasks:
+    - name: Esperar a que el archivo de bloqueo.lock deje de existir
+      wait_for:
+        path: /home/remoto/bloqueo.lock
+        state: absent
+        timeout: 300
+      register: wait_result
+
+    - name: Eliminar el archivo de bloqueo.lock
+      file:
+        path: /home/remoto/bloqueo.lock
+        state: absent
+      when: wait_result.elapsed < 300
+
+    - name: Tarea 1
+      shell: pwd
+      when: wait_result.elapsed < 300
+
+    - name: Tarea 2
+      shell: ls
+      when: wait_result.elapsed < 300

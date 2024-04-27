@@ -1,0 +1,20 @@
+#Creamos un handler en el playbook que se encargue de reiniciar el servicio Apache 2
+#cuando se modifique la configuración
+
+#Después asociamos el hanlder a las tareas que se encargan de configurar Apache2
+---
+- name: Configuración y reinicio de Apache2
+  hosts: mayor
+  tasks:
+    - name: Copiar el archivo de configuración de Apache2
+      template:
+        src: /etc/apache2/apache2.conf
+        dest: /etc/apache2/apache2.conf
+      notify: Reiniciar Apache2
+
+  handlers:
+    - name: Reiniciar Apache2
+      service:
+        name: apache2
+        state: restarted
+

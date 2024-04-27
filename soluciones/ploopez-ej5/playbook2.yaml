@@ -1,0 +1,9 @@
+---
+- name: Copiar archivos JSON a /tmp/jsons
+  hosts: grupo1
+#no funciona
+  tasks:
+    - name: Copiar archivos JSON
+      ansible.builtin.copy:
+        src: /home/pablo/json/*.json
+        dest: /tmp/jsons/

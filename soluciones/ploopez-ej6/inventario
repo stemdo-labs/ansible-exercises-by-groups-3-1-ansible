@@ -1,0 +1,9 @@
+[grupo1]
+nodo1 ansible_host=192.168.1.50 ansible_user=remoto
+
+[nodos]
+#nodo1 ansible_host=192.168.1.86 ansible_user=remoto
+#nodo2 ansible_host=192.168.1.87 ansible_user=remoto
+
+[mayor:children]
+nodos
