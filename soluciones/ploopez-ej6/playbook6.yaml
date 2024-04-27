@@ -1,0 +1,17 @@
+---
+- name: Buscar archivos grandes de forma recursiva
+  hosts: grupo1
+  become: yes
+
+  tasks:
+    - name: Buscar archivos grandes
+      find:
+        paths: /
+        size: +104857600
+      register: large_files
+
+    - name: Mostrar archivos grandes encontrados
+      debug:
+        msg: "Archivo: {{ item.path }} - Tamaño: {{ (item.size | int) / 1024 / 1024 }} MB"
+      with_items: "{{ large_files.files }}"
+...

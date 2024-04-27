@@ -1,0 +1,24 @@
+---
+- name: Buscar archivos con condiciones específicas en /var/log
+  hosts: grupo1
+  become: yes
+
+  tasks:
+    - name: Buscar archivos que cumplan con las condiciones
+      find:
+        paths: /var/log
+        patterns: '[a-z]_[0-9]{8}\.log'
+        size: +104857600
+      register: filtered_logs
+
+    - name: Mostrar archivos encontrados
+      debug:
+        msg: "Archivo: {{ item.path }} - Tamaño: {{ (item.size | int) / 1024 / 1024 }} MB"
+      with_items: "{{ filtered_logs.files }}"
+      when: filtered_logs.files | length > 0
+
+    - name: Mostrar mensaje si no se encuentran archivos
+      debug:
+        msg: "No se encontraron archivos que cumplan con las condiciones especificadas."
+      when: filtered_logs.files | length == 0
+...

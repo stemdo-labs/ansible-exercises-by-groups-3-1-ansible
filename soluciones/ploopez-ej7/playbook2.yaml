@@ -1,0 +1,17 @@
+---
+- name: Esperar a que un archivo deje de existir en la máquina remota
+  hosts: grupo1
+  become: yes
+
+  tasks:
+    - name: Esperar a que el archivo de bloqueo.lock deje de existir
+      wait_for:
+        path: /home/remoto/bloqueo.lock
+        state: absent
+        timeout: 300  #
+      register: wait_result
+
+    - name: Mostrar mensaje después de que el archivo desaparezca
+      debug:
+        msg: "El archivo bloqueo.lock ha dejado de existir en la máquina remota."
+      when: wait_result.elapsed < 300

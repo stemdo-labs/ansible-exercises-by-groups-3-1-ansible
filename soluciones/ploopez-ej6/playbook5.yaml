@@ -1,0 +1,17 @@
+---
+- name: Buscar archivos .log con más de 30 días de antigüedad
+  hosts: grupo1
+  become: yes
+
+  tasks:
+    - name: Buscar archivos .log en /var/log con más de 30 días de antigüedad
+      find:
+        paths: /var/log
+        patterns: "*.log"
+        age: "30d"
+      register: old_log_files
+
+    - name: Mostrar archivos encontrados
+      debug:
+        msg: "Archivo: {{ item.path }} - Última modificación: {{ item.ctime }}"
+      with_items: "{{ old_log_files.files }}"

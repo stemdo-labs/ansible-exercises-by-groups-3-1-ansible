@@ -1,0 +1,14 @@
+---
+- name: Mostrar variables secretas
+  hosts: localhost
+  vars_files:
+    - missecretos.yaml
+#Para este ejercicio poder hacerlo en locahost, hay que modificar el etc/sudoers
+  tasks:
+    - name: Mostrar el valor de miuser
+      debug:
+        msg: "El valor de miuser es {{ miuser }}"
+
+    - name: Mostrar el valor de micontra
+      debug:
+        msg: "El valor de micontra es {{ micontra }}"

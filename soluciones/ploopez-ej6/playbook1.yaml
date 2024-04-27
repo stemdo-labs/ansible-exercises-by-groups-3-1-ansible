@@ -1,0 +1,20 @@
+---
+- name: Verificar estado de servicios
+  hosts: grupo1
+  tasks:
+    - name: Leer datos del archivo JSON
+      include_vars:
+        file: servicios.json
+
+    - name: Verificar estado de los servicios
+      systemd:
+        name: "{{ item }}"
+        state: "started"
+      loop: "{{ web_services }}"
+      register: servicio_estado
+
+    - name: Mostrar estado de los servicios
+      debug:
+        msg: "El servicio {{ item.item }} está {{ 'iniciado' if item.state == 'started' else 'detenido' }}"
+      loop: "{{ servicio_estado.results }}"
+

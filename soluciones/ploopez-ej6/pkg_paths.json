@@ -1,0 +1,9 @@
+{
+    "packages": [
+      {"name": "apache2", "path": "/usr/sbin/apache2"},
+      {"name": "vim", "path": "/usr/bin/vim"},
+      {"name": "nginx", "path": "/usr/sbin/nginx"},
+      {"name": "filebeat", "path": "/usr/bin/filebeat"}
+    ]
+  }
+  

@@ -1,0 +1,14 @@
+---
+- name: ejercicio control errores
+  hosts: grupo1
+  tasks:
+    - name: Instala en Ubuntu
+      block:
+        - name: Instala git en Ubuntu
+          apt:
+            name: git
+            state: present
+      rescue:
+        - name: Manejo de errores en Ubuntu
+          debug:
+            msg: "Ocurrió un error al intentar instalar git en Ubuntu"
