@@ -1,0 +1,16 @@
+---
+- name: Buscar archivos .log con 30 días de antigüedad
+  hosts: todos
+  tasks:
+    - name: Buscar archivos .log en /var/log
+      find:
+        paths: /var/log
+        patterns: "*.log"
+        age: 30d
+        recurse: yes
+      register: logs_found
+
+    - name: Mostrar archivos encontrados
+      debug:
+        msg: "Archivo encontrado: {{ item.path }}"
+      loop: "{{ logs_found.files }}"
