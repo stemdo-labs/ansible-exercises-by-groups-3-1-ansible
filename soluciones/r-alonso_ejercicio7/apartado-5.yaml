@@ -1,0 +1,16 @@
+# https://github.com/geerlingguy/ansible-role-mysql
+
+# dom abr 28 12:08:07 rafael@rafael-VirtualBox ~/ansible-exercicies-github/ansible-exercises-by-groups-3-1-ansible/soluciones$ ansible-playbook -i inventory ejercicio7/apartado-5.yaml -u rafael --ask-become-pass
+
+# RUNNING HANDLER [geerlingguy.mysql : restart mysql] **********************************************************************************************************************************
+# [WARNING]: Ignoring "sleep" as it is not used in "systemd"
+# changed: [localhost]
+#
+# PLAY RECAP ***************************************************************************************************************************************************************************
+# localhost                  : ok=34   changed=8    unreachable=0    failed=0    skipped=22   rescued=0    ignored=0   
+
+
+- hosts: localhost
+  roles:
+    - role: geerlingguy.mysql
+      become: true

@@ -1,0 +1,18 @@
+node2 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_all_ipv6_addresses": [
+            "fe80::a00:27ff:fee2:e5f2"
+        ],
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false
+}
+node1 | SUCCESS => {
+    "ansible_facts": {
+        "ansible_all_ipv6_addresses": [
+            "fe80::a00:27ff:fe7b:c353"
+        ],
+        "discovered_interpreter_python": "/usr/bin/python3"
+    },
+    "changed": false
+}

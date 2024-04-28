@@ -1,0 +1,20 @@
+---
+- name: Pruebas con wait_for 2
+  hosts: grupo1
+  tasks:
+    - name: Crear el archivo de bloqueo
+      file:
+        path: /tmp/bloqueo.lock
+        owner: "{{ ansible_user_id }}"
+        mode: '0775'
+        state: touch
+
+    - name: Esperar hasta que el archivo sea borrado
+      wait_for:
+        path: /tmp/bloqueo.lock
+        state: absent
+
+    - name: Tarea adicional 1
+      debug:
+        msg: Esta es una tarea adicional que se ejecuta después de eliminar el archivo de bloqueo
+...

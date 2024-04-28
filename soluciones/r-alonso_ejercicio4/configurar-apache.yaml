@@ -1,0 +1,16 @@
+---
+- name: Configuración de apache2
+  hosts: todos
+  tasks:
+    - name: Copiar archivo de configuración de apache2
+      template:
+        src: apache2.conf.j2
+        dest: /etc/apache2/apache2.conf
+      notify: reiniciar apache2
+
+  handlers:
+    - name: reiniciar apache2
+      service:
+        name: apache2
+        state: restarted
+...

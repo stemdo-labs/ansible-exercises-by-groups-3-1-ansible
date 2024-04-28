@@ -1,0 +1,16 @@
+---
+- name: Buscar archivos que cumplan con los criterios especificados
+  hosts: todos
+  tasks:
+    - name: Buscar archivos que coincidan con la expresión regular
+      find:
+        paths: /var/log
+        patterns: '[a-z]_[0-9]{8}\.log'
+        size: 100m
+        recurse: yes
+      register: regex_files
+
+    - name: Mostrar archivos encontrados
+      debug:
+        msg: "Archivo encontrado: {{ item.path }}"
+      loop: "{{ regex_files.files }}"
