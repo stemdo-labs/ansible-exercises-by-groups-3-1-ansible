@@ -1,0 +1,25 @@
+---
+- name: Copiar archivos JSON a /tmp/jsons
+  hosts: todos
+  tasks:
+    - name: Crear directorio /tmp/jsons si no existe
+      file:
+        path: /tmp/jsons
+        state: directory
+        
+    - name: Obtener ruta del directorio JSON del usuario de Ansible
+      set_fact:
+        json_dir: "/home/{{ ansible_user }}/json"
+
+    - name: Buscar archivos JSON
+      find:
+        paths: "{{ json_dir }}"
+        patterns: "*.json"
+      register: json_files
+
+    - name: Copiar archivos JSON
+      copy:
+        src: "{{ item.path }}"
+        dest: "/tmp/jsons/{{ item.path | basename }}"
+        remote_src: yes 
+      with_items: "{{ json_files.files }}"
