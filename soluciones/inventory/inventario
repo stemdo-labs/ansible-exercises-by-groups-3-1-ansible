@@ -1,0 +1,9 @@
+[grupo1]
+node1
+
+[grupo2]
+node2
+
+[todos:children]
+grupo1
+grupo2
