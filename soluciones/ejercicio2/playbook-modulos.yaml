@@ -1,0 +1,39 @@
+---
+- name: Comprimir modulos
+  hosts: grupo1
+  become: yes
+  vars:
+    path: /etc/apache2
+    dest: /tmp/apache2_using_vars.tar.gz
+
+    apache2_log_path: /var/log/apache2/
+    mispruebas_log_path: /home/remoto/mispruebas/
+    log_dest: /tmp/logs_using_vars.tar.gz
+  
+  tasks:
+    - name: Comprimir sin usar variables
+      archive:
+        path: /etc/apache2
+        dest: /tmp/apache2-test.tar.gz
+        format: gz
+
+    - name: Comprimir usando variables
+      archive:
+        path: "{{ path }}"
+        dest: "{{ dest }}"
+        format: gz
+
+    - name: Tarea 2 Comprimir logs
+      archive:
+        path: 
+          # - "{{ apache2_log_path }}"
+          - "{{ mispruebas_log_path }}"
+
+        dest: /tmp/mislogs.tar.gz
+        # exclude_path:
+        #   - "*access*.txt"
+        format: gz
+      
+
+    
+        
