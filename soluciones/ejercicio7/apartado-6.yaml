@@ -1,0 +1,9 @@
+---
+# https://galaxy.ansible.com/ui/standalone/roles/idealista/kafka/documentation/
+
+# dom abr 28 12:11:29 rafael@rafael-VirtualBox ~/ansible-exercicies-github/ansible-exercises-by-groups-3-1-ansible/soluciones/ejercicio7$ ansible-galaxy install -p roles -r requirements-apartado-6.yaml -f
+
+- hosts: grupo1
+  roles:
+    - role: kafka_role
+      become: yes

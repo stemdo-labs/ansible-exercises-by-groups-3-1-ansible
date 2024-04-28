@@ -1,6 +1,7 @@
 ---
+# dom abr 28 11:24:15 rafael@rafael-VirtualBox ~/ansible-exercicies-github/ansible-exercises-by-groups-3-1-ansible/soluciones$ ansible-playbook -i inventory ejercicio7/apartado-4.yaml --vault-password-file ejercicio7/pass.txt
 - name: Mostrar secretos
-  hosts: todos
+  hosts: grupo1
   tasks:
     - name: Desencriptar el archivo de secretos
       include_vars: missecretos.yaml
