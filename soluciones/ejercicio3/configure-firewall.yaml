@@ -1,0 +1,45 @@
+---
+- name: Configurar firewall en la máquina local
+  hosts: localhost
+  gather_facts: yes
+  tasks:
+    - name: Obtener información de la máquina local
+      debug:
+        msg: "OS Family: {{ ansible_facts['os_family'] }} | Hostname: {{ ansible_facts['hostname'] }} | IPv4 Address: {{ ansible_facts['default_ipv4']['address'] }}"
+
+- name: Configurar firewall en el nodo remoto
+  hosts: all
+  gather_facts: yes
+  vars_prompt:
+    - name: "entorno"
+      prompt: "Ingrese el entorno (dev, pre, pro): "
+      private: no
+  tasks:
+    - block:
+        - include_vars: entornos.yaml
+          
+        - debug:
+            msg: "OS Family: {{ ansible_facts['os_family'] }} | Hostname: {{ ansible_facts['hostname'] }} | IPv4 Address: {{ ansible_facts['default_ipv4']['address'] }}"
+
+        # Configuración del firewall según las variables del entorno
+        - firewalld:
+            service: https
+            permanent: true
+            state: "{{ 'enabled' if vars[entorno]['https_service'] else 'disabled' }}"
+
+        - firewalld:
+            port: 8081/tcp
+            permanent: true
+            state: "{{ 'enabled' if vars[entorno]['port_8081_state'] else 'disabled' }}"
+
+        - firewalld:
+            port: 161-162/udp
+            permanent: true
+            state: "{{ 'enabled' if vars[entorno]['port_161_162_state'] else 'disabled' }}"
+
+        - firewalld:
+            source: "{{ vars[entorno]['source_network'] }}"
+            permanent: true
+            zone: "{{ vars[entorno]['zone'] }}"
+            state: enabled
+      when: entorno in ['dev', 'pre', 'pro']
