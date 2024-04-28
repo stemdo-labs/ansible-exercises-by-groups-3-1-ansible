@@ -1,0 +1,13 @@
+---
+# dom abr 28 11:24:15 rafael@rafael-VirtualBox ~/ansible-exercicies-github/ansible-exercises-by-groups-3-1-ansible/soluciones$ ansible-playbook -i inventory ejercicio7/apartado-4.yaml --vault-password-file ejercicio7/pass.txt
+- name: Mostrar secretos
+  hosts: grupo1
+  tasks:
+    - name: Desencriptar el archivo de secretos
+      include_vars: missecretos.yaml
+      no_log: true
+
+    - name: Mostrar valores de las variables
+      debug:
+        msg: "El valor de miuser es {{ miuser }} y el valor de micontra es {{ micontra }}"
+...

@@ -1,9 +1,0 @@
----
-- name: Descomprimir archivo en /opt/oracle
-  hosts: grupo1
-  tasks:
-    - name: Descomprimir archivo
-      unarchive:
-        src: /home/rafael/7z2301-linux-x64.tar.xz
-        dest: /tmp
-        owner: rafael
