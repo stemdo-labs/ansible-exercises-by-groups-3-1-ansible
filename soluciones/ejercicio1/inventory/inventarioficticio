@@ -1,0 +1,15 @@
+[webservers]
+nodo1
+nodo4
+nodo5
+
+[dataservers]
+nodo3
+
+[proxy]
+nodo2
+
+[todos:children]
+webservers
+dataservers
+proxy

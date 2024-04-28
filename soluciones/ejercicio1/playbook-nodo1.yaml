@@ -1,0 +1,33 @@
+---
+- name: Ping al nodo1, instalación de apache 2, verificacion de que funciona e instalacion de mariadb
+  hosts: node1
+  become: yes
+  tasks:
+    - name: Ping a nodo1
+      ping:
+      register: ping_result
+    
+    - debug:
+        msg: "{{ ping_result }}"
+      when: ping_result is succeeded
+
+    - name: Instalar apache2
+      apt:
+        name: apache2
+        state: latest
+    
+    - name: Verificar si Apache2 está instalado
+      command: apache2 -v
+      register: apache_version
+
+    - debug:
+        msg: "Apache2 está instalado en el {{ ansible_hostname }}"
+      when: apache_version is succeeded
+
+    - name: Instalar MariaDB
+      apt:
+        name: mariadb-server
+        state: present
+      become: yes
+
+...
