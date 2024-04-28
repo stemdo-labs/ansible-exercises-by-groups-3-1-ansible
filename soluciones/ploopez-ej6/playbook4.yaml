@@ -1,0 +1,20 @@
+---
+- name: Validar la instalación de paquetes
+  hosts: grupo1
+  become: yes
+
+  vars_files:
+    - pkg_paths.json
+
+  tasks:
+    - name: Verificar la instalación de paquetes
+      stat:
+        path: "{{ item.path }}"
+      register: package_installed
+      loop: "{{ packages }}"
+
+    - name: Mostrar resultados
+      debug:
+        msg: "{{ item.item.name }} está {{ 'instalado' if item.stat.exists else 'no instalado' }}"
+      loop: "{{ package_installed.results }}"
+...

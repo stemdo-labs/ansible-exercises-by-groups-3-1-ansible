@@ -1,0 +1,91 @@
+---
+- name: Crear usuarios y grupos en Ansible complejo
+  hosts: todos
+  become: true
+
+  vars:
+    lista_usuarios:
+      - name: Pedro
+        groups: [admin, usuarios, produccion]
+        expires: false
+        uid: 1040
+        ssh_key: true
+        ssh_key_type: rsa
+        ssh_key_bits: 2048
+      - name: Juan
+        groups: [usuarios, desarrollo]
+        expires: false
+        ssh_key: false
+      - name: Maria
+        groups: [usuarios, desarrollo]
+        expires: false
+        ssh_key: false
+      - name: Ana
+        groups: [testing, produccion]
+        expires: false
+        uid: 1043
+        ssh_key: true
+        ssh_key_type: rsa
+        ssh_key_bits: 2048
+      - name: Antonio
+        groups: [usuarios, testing]
+        expires: false
+        ssh_key: false
+      - name: Marta
+        groups: [usuarios, produccion]
+        expires: false
+        ssh_key: false
+      - name: Jose
+        groups: [admin, usuarios, desarrollo]
+        expires: false
+        uid: 1046
+        ssh_key: true
+        ssh_key_type: rsa
+        ssh_key_bits: 2048
+      - name: Invitado1
+        groups: [usuarios]
+        expires: true
+        ssh_key: false
+      - name: Invitado2
+        groups: [usuarios]
+        expires: true
+        ssh_key: false
+
+  tasks:
+    - name: Crear grupos
+      group:
+        name: "{{ item }}"
+      loop: "{{ lista_usuarios | map(attribute='groups') | flatten | unique }}"
+
+    - name: Crear usuarios
+      user:
+        name: "{{ item.name }}"
+        groups: "{{ item.groups }}"
+        state: present
+        expires: "{{ item.expires }}"
+        uid: "{{ item.uid | default(omit) }}"
+      loop: "{{ lista_usuarios }}"
+      loop_control:
+        loop_var: item
+      
+    - name: Crear directorio .ssh si no existe
+      file:
+        path: "/home/{{ item.name }}/.ssh"
+        state: directory
+        owner: "{{ item.name }}"
+        group: "{{ item.name }}"
+        mode: '0700'
+      loop: "{{ lista_usuarios }}"
+      loop_control:
+        loop_var: item
+      
+    - name: Crear claves SSH para los usuarios que lo requieran
+      when: item.ssh_key == true
+      openssh_keypair:
+        path: "/home/{{ item.name }}/.ssh/id_rsa"
+        type: "{{ item.ssh_key_type }}"
+        size: "{{ item.ssh_key_bits }}"
+        owner: "{{ item.name }}"
+      loop: "{{ lista_usuarios }}"
+      loop_control:
+        loop_var: item

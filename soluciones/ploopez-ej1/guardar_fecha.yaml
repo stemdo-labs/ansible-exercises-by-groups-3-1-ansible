@@ -1,0 +1,6 @@
+---
+- name: Guardar fecha actual en archivo
+  hosts: nodo1
+  tasks:
+    - name: Ejecutar comando para guardar fecha actual
+      shell: date > /tmp/fechahora.data

@@ -1,0 +1,37 @@
+---
+- name: Instalar paquetes en distintas distribuciones de Linux
+  hosts: grupo1
+  tasks:
+    - name: Instalar paquetes en Ubuntu
+      tags: 
+        - ubuntu
+      ansible.builtin.apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - apt-transport-https
+        - ca-certificates
+        - software-properties-common
+        - glances
+        - git
+        - vim
+      when: ansible_distribution == 'Ubuntu'
+
+    - name: Instalar paquetes en CentOS
+      tags:
+        - centos
+      ansible.builtin.yum:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - curl
+        - epel-release
+        - curl
+        - apt-transport-https
+        - ca-certificates
+        - software-properties-common
+        - glances
+        - git
+        - vim
+      when: ansible_distribution == 'CentOS'

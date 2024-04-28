@@ -1,0 +1,16 @@
+---
+- name: Tareas de preparación
+  hosts: nodo1
+  gather_facts: no
+  tasks:
+    - name: Realizar ping a todos los nodos en el grupo webservers
+      ping:
+      
+- name: Instalar Apache2
+  hosts: nodo1
+  tasks:
+    - name: Instalar Apache2
+      become: yes
+      apt:
+        name: apache2
+        state: present

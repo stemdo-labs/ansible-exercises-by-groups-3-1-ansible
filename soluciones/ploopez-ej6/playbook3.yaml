@@ -1,0 +1,19 @@
+---
+- name: Descomprimir archivos para el usuario weblogic
+  hosts: grupo1
+  become: yes
+
+  tasks:
+    - name: Crear directorio /opt/oracle si no existe
+      file:
+        path: /opt/oracle
+        state: directory
+
+    - name: Descomprimir el archivo para el usuario weblogic
+      unarchive:
+        src: /home/weblogic/jre-8u411-linux-x64.tar.gz
+        dest: /opt/oracle
+        remote_src: yes
+        owner: weblogic
+        group: weblogic
+...

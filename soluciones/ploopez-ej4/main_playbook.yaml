@@ -1,0 +1,9 @@
+---
+- name: Playbook principal
+
+  import_playbook: ejercicio1.yaml
+
+
+
+
+

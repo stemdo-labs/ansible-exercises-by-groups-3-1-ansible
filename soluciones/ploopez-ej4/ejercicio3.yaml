@@ -1,0 +1,16 @@
+---
+- name: Limpiar dependencias y caché
+  hosts: mayor
+  become: yes
+  tasks:
+    - name: Limpiar dependencias y caché en sistemas Debian/Ubuntu
+      apt:
+        autoclean: yes
+        autoremove: yes
+      when: ansible_os_family == 'Debian'
+
+    - name: Limpiar dependencias y caché en sistemas Red Hat/CentOS
+      yum:
+        name: '*'
+        state: clean
+      when: ansible_os_family == 'RedHat'

@@ -1,0 +1,15 @@
+---
+- name: Obtener información de la máquina local
+  hosts: localhost
+  tasks:
+    - name: Mostrar información
+      debug:
+        msg: "Sistema operativo: {{ ansible_facts['os_family'] }}, Hostname: {{ ansible_facts['hostname'] }}, Dirección IP: {{ ansible_facts['default_ipv4']['address'] }}"
+
+- name: Obtener información de un nodo remoto
+  hosts: mayor
+  tasks:
+    - name: Mostrar información del nodo remoto
+      debug:
+        msg: "Sistema operativo: {{ ansible_facts['os_family'] }}, Hostname: {{ ansible_facts['hostname'] }}, Dirección IP: {{ ansible_facts['default_ipv4']['address'] }}"
+

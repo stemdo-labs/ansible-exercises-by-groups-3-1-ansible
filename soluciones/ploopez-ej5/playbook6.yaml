@@ -1,0 +1,40 @@
+---
+- name: Crear usuarios y grupos combinados
+  hosts: mayor
+  become: yes
+  gather_facts: no
+
+  vars:
+    grupos:
+      - usuarios
+      - admin
+      - desarrollo
+      - testing
+      - produccion
+    usuarios:
+      - Pedro
+      - Juan
+      - Maria
+      - Ana
+      - Antonio
+      - Marta
+      - Jose
+
+  tasks:
+    - name: Crear usuarios y grupos
+      block:
+        - name: Crear grupos
+          group:
+            name: "{{ item }}"
+          loop: "{{ grupos }}"
+
+        - name: Crear usuarios
+          user:
+            name: "{{ item_usuario }}"
+            groups: "{{ item_grupo }}"
+          loop: "{{ usuarios }}"
+          loop_control:
+            loop_var: item_usuario
+          vars:
+            item_grupo: "{{ grupos }}"
+      run_once: true

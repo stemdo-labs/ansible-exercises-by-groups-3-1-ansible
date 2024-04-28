@@ -1,0 +1,19 @@
+---
+- name: Instalar htop desde local
+  hosts: nodo1
+  tasks:
+    - name: Instalar htop desde archivo .deb local
+      apt:
+        deb: /home/remoto/htop_3.0.5-7build2_amd64.deb
+      become: yes
+
+- name: Instalar tree desde internet
+  hosts: mayor
+  tasks:
+    - name: Instalar tree
+      apt:
+        name: tree
+        state: present
+      become: yes
+
+

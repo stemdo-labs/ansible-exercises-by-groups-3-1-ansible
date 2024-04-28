@@ -1,0 +1,4 @@
+---
+- name: Playbook principal 2
+
+  import_playbook: ejercicio2.yaml

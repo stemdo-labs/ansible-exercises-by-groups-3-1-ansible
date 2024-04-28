@@ -1,0 +1,1 @@
+{"ipv6_address": "fe80::a00:27ff:fe52:fc3"}
