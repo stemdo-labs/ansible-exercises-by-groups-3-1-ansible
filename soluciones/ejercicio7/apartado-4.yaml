@@ -1,0 +1,12 @@
+---
+- name: Mostrar secretos
+  hosts: todos
+  tasks:
+    - name: Desencriptar el archivo de secretos
+      include_vars: missecretos.yaml
+      no_log: true
+
+    - name: Mostrar valores de las variables
+      debug:
+        msg: "El valor de miuser es {{ miuser }} y el valor de micontra es {{ micontra }}"
+...

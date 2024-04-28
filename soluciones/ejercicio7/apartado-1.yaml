@@ -1,0 +1,22 @@
+---
+- name: Gestionar instalaciones
+  hosts: todos
+  tasks:
+    - name: Instalar en ubuntu
+      block:
+        - apt:
+            name: git
+            state: present
+      rescue:
+        - debug:
+            msg: "No se pudo instalar en Ubuntu"
+
+    - name: Instalar en centos
+      block:
+        - yum:
+            name: git
+            state: present
+      rescue:
+        - debug:
+            msg: "No se pudo instalar en CentOS"
+...
